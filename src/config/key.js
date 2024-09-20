@@ -1,12 +1,14 @@
 
-
+// import dotenv from 'dotenv';
+// dotenv.config();
 import {
     GoogleGenerativeAI,
     HarmCategory,
     HarmBlockThreshold,
   } from "@google/generative-ai"
   
-  const apiKey = "AIzaSyDKlBKCATGmXnz4gEVyUWkKHAWG3ogLAJQ";
+  // require('dotenv').config()
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   const genAI = new GoogleGenerativeAI(apiKey);
   
   const model = genAI.getGenerativeModel({
