@@ -1,2 +1,2 @@
 # Dev-Bot
-Chat bot for Developers.
+Chat bot for Engineers & Developers.
