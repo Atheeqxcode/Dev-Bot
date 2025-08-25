@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./Main.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context.jsx";
+import VoiceButton from "../VoiceButton"; // adjust path if needed
 
 const Main = () => {
   const {
@@ -12,13 +13,16 @@ const Main = () => {
     resultData,
     setInput,
     input,
+    handleVoiceResult,
   } = useContext(Context);
+
   return (
     <div className="main">
       <div className="nav">
         <p>Dev Bot</p>
         <img src={assets.user_icon} alt="" />
       </div>
+
       <div className="main-container">
         {!showResult ? (
           <>
@@ -37,14 +41,14 @@ const Main = () => {
                   )
                 }
               >
-                <p>Suggest Beutiful Places to see on an upcoming Road Trip</p>
+                <p>Suggest Beautiful Places to see on an upcoming Road Trip</p>
                 <img src={assets.compass_icon} alt="" />
               </div>
               <div
                 className="card"
                 onClick={() => setInput("Good Courses other than Engineering?")}
               >
-                <p>Good Courses than Engineering?</p>
+                <p>Good Courses other than Engineering?</p>
                 <img src={assets.message_icon} alt="" />
               </div>
               <div
@@ -53,14 +57,14 @@ const Main = () => {
                   setInput("Summarize Concept: Software Engineering")
                 }
               >
-                <p>Summarize Concept: Software Engineering </p>
+                <p>Summarize Concept: Software Engineering</p>
                 <img src={assets.bulb_icon} alt="" />
               </div>
               <div
                 className="card"
                 onClick={() => setInput("Interview Questions on MERN Stack")}
               >
-                <p>Interview Questions on Mern Stack</p>
+                <p>Interview Questions on MERN Stack</p>
                 <img src={assets.code_icon} alt="" />
               </div>
             </div>
@@ -92,24 +96,37 @@ const Main = () => {
               onChange={(e) => setInput(e.target.value)}
               value={input}
               type="text"
-              placeholder="Enter Your Prompt here"
+              placeholder={
+                loading ? "Loading response..." : "Enter Your Prompt here"
+              }
+              disabled={loading} // disable typing while waiting
               onKeyDown={(e) => {
                 if (e.key === "Enter" && input) {
-                  onSent();
+                  onSent(input);
                 }
               }}
             />
 
             <div>
               <img src={assets.gallery_icon} alt="" />
-              <img src={assets.mic_icon} alt="" />
-              {input ? (
-                <img onClick={() => onSent()} src={assets.send_icon} alt="" />
-              ) : null}
+              <VoiceButton onResult={handleVoiceResult} />
+
+              {/* Always show send icon, but disable it if loading or input empty */}
+              <img
+                onClick={() => {
+                  if (!loading && input) onSent();
+                }}
+                src={assets.send_icon}
+                alt=""
+                style={{
+                  opacity: !input || loading ? 0.5 : 1,
+                  pointerEvents: !input || loading ? "none" : "auto",
+                }}
+              />
             </div>
           </div>
           <p className="bottom-info">
-            Dev Bot is Currently Under Development, May be inaccurate sometimes
+            Dev Bot is Currently Under Development, may be inaccurate sometimes
           </p>
         </div>
       </div>
