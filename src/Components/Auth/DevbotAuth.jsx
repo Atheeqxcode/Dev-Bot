@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from 'lucide-react';
 
 const DevbotAuth = ({ onAuthSuccess }) => {
@@ -615,7 +615,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
               <GoogleLogin
                 width="100%"
                 onSuccess={credentialResponse => {
-                  const decoded = jwt_decode(credentialResponse.credential);
+                  const decoded = jwtDecode(credentialResponse.credential);
                   // You can shape userData as needed for your app
                   const userData = {
                     id: decoded.sub,
