@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import "./Main.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context.jsx";
-import VoiceButton from "../VoiceButton"; // adjust path if needed
+import VoiceButton from "../VoiceButton"; 
 
-const Main = () => {
+const Main = ({ user }) => {
   const {
     onSent,
     recentPrompt,
@@ -16,11 +16,14 @@ const Main = () => {
     handleVoiceResult,
   } = useContext(Context);
 
+  // Use user's avatar if available, else fallback
+  const userAvatar = user && user.avatar ? user.avatar : assets.user_icon;
+
   return (
     <div className="main">
       <div className="nav">
         <p>Dev Bot</p>
-        <img src={assets.user_icon} alt="" />
+        <img src={userAvatar} alt="user avatar" />
       </div>
 
       <div className="main-container">
@@ -72,7 +75,7 @@ const Main = () => {
         ) : (
           <div className="result">
             <div className="result-title">
-              <img src={assets.user_icon} alt="" />
+              <img src={userAvatar} alt="user avatar" />
               <p>{recentPrompt}</p>
             </div>
             <div className="result-data">
@@ -126,7 +129,7 @@ const Main = () => {
             </div>
           </div>
           <p className="bottom-info">
-            Dev Bot is Currently Under Development, may be inaccurate sometimes
+            Dev Bot may be inaccurate sometimes & Authentication is not secure yet (Under Development).
           </p>
         </div>
       </div>

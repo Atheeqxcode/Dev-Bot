@@ -1,198 +1,232 @@
-.main{
-    flex: 1;
-    min-height: 100vh;
-    padding-bottom: 15vh;
-    position: relative;
+/* ---------- Responsive adjustments for .main ---------- */
+/* Use box-sizing globally for predictable sizing */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+/* Make main padding responsive and avoid overlap with bottom area */
+.main {
+  flex: 1;
+  min-height: 100vh;
+  padding: 32px;
+  padding-bottom: 18vh; /* leave space for bottom elements */
+  position: relative;
+  transition: padding .2s ease, transform .2s ease;
 }
 
+/* Top nav */
 .main .nav{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 22px;
-    padding: 20px;
-    color: #585858;  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  padding: 8px 0;
+  color: #585858;  
 }
 
-.main .nav img{
-    width: 40px;
-    border-radius: 50%;
-}
-
+/* Container width: fluid until max width */
 .main-container{
-    max-width: 900px;
-    margin: auto;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 
+/* Greeting styles scale down on smaller screens */
 .main .greet{
-    margin: 50px 0px;
-    font-size: 56px;
-    color: #c4c7c5;
-    font-weight: 500;
-    padding: 20px;
+  margin: 32px 0;
+  font-size: 48px;
+  color: #c4c7c5;
+  font-weight: 500;
+  padding: 12px 0;
+  line-height: 1.05;
 }
-
 .main .greet span{
-    background: -webkit-linear-gradient(16deg,#f44545,#4f110b);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: -webkit-linear-gradient(16deg,#f44545,#4f110b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
+/* Cards grid is fluid: reduce min width on narrow screens */
 .main .cards{
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
-    gap: 15px;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+  padding: 8px 0 24px 0;
 }
 
+/* Make card height flexible to avoid overflow on small screens */
 .main .card{
-    height: 200px;
-    padding: 15px;
-    background-color: #f0f4f9;
-    border-radius: 10px;
-    position: relative;
-    cursor: pointer;
+  min-height: 150px;
+  height: auto;
+  padding: 14px;
+  background-color: #f0f4f9;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
+/* card image anchored but smaller on mobile */
 .main .card img{
-    width: 35px;
-    padding: 5px;
-    position: absolute;
-    background-color: white;
-    border-radius: 20px;
-    bottom: 10px;
-    right: 10px;
+  width: 34px;
+  height: 34px;
+  padding: 4px;
+  position: absolute;
+  background-color: white;
+  border-radius: 12px;
+  bottom: 10px;
+  right: 10px;
 }
 
+/* Text sizing */
 .main .card p{
-    color: #585858;
-    font-size: 17px;
+  color: #585858;
+  font-size: 16px;
+  margin: 0 0 8px 0;
 }
 
-.main .card:hover{
-    background-color: #dfe4ea;
-}
-
+/* Main bottom area: center and keep inside container */
 .main-bottom{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    max-width: 900px;
-    padding: 0px 20px;
-    margin: auto;
-
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1100px;
+  padding: 12px 20px;
+  box-sizing: border-box;
 }
 
-  .search-box{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    background-color: #f0f4f9;
-    padding: 10px 20px;
-    border-radius: 50px;
+/* Search box adjustments */
+.search-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background-color: #f0f4f9;
+  padding: 10px 16px;
+  border-radius: 999px;
 }
-
- .search-box img{
-    width: 24px;
-    cursor: pointer;
-}
-
+.search-box img{ width: 22px; }
 .search-box input{
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    padding: 8px;
-    font-size: 18px;
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 16px;
 }
+.search-box div{ display:flex; align-items:center; gap:12px; }
 
-
-.search-box div{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.main .bottom-info{
-    font-size: 13px;
-    margin: 15px auto;
-    text-align: center;
-    font-weight: 300;
-}
-
+/* Results area: usable height and smooth scrolling */
 .result{
-    padding: 0px 5%;
-    max-height: 70vh;
-    overflow-y: scroll;
+  padding: 0 6%;
+  max-height: calc(100vh - 240px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
+.result::-webkit-scrollbar{ width: 8px; }
+.result::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.08); border-radius:4px; }
 
-.result::-webkit-scrollbar{
-    display: none;
-}
+/* Result visuals */
+.result-title{ margin: 28px 0; display:flex; align-items:center; gap:14px; }
+.result img{ width: 44px; border-radius: 12px; }
+.result-data{ display:flex; align-items:flex-start; gap:16px; }
+.result-data p{ font-size: 16px; font-weight: 300; line-height: 1.7; margin: 0; }
 
-.result-title{
-    margin: 40px 0px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.result img{
-    width: 45px;
-    border-radius: 20%;
-}
-
-.result-data{
-    display: flex;
-    align-items: start;
-   gap: 20px; 
-}
-
-.loader{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+/* Loader size tweak */
 .loader hr{
-    border-radius: 4px;
-    border: none;
-background-color: #f6f7f8;
-background: linear-gradient(to right,#4f110b,#e38787,#dc3838);
-background-size: 800px 50px;
-height: 20px;
-animation: loader 3s infinite linear;
+  height: 16px;
+  border-radius: 4px;
+  background-size: 800px 50px;
 }
 
-@keyframes loader {
-    0%{
-        background-position: -800px 0px;
-    }
-    100%{
-        background-position: 800px 0px;
-    }
+/* Small screens (phones) */
+@media (max-width: 480px) {
+  .main{
+    padding: 16px 12px;
+    padding-bottom: 20vh;
+  }
+  .bottom-info{
+    justify-content: center;
+    text-align: center;
+    font-size: smaller;
+    
+}
+  .main .greet{ font-size: 28px; margin: 18px 0; }
+  .main .nav{ font-size: 18px; padding: 6px 0; }
+  .main .cards{ gap: 10px; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .main .card{ min-height: 120px; padding: 10px; border-radius: 8px; }
+  .main .card img{ width: 28px; height: 28px; bottom: 8px; right: 8px; }
+  .search-box input{ font-size: 15px; }
+  .main-bottom{ padding: 10px; max-width: 100%; left: 0; transform: none; }
+  .result{ padding: 0 4%; max-height: calc(100vh - 200px); }
 }
 
-.result-data p{
-    font-size: 17px;
-    font-weight: 300;
-    line-height: 1.8;
+/* Small tablets (up to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .main{ padding: 18px; padding-bottom: 20vh; }
+  .main .greet{ font-size: 36px; }
+  .main .cards{ grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .main .card{ min-height: 140px; }
+  .result{ max-height: calc(100vh - 220px); padding: 0 5%; }
+   .bottom-info{
+    justify-content: center;
+    text-align: center;
+    font-size: small;
+
+}
 }
 
-@media(max-width:600px){
-    .main-bottom input{
-        flex:none;
-        width: 150px;
-    }
-    .main-bottom img{
-        width: 20px;
-    }
-    .search-box{
-        padding: 5px 10px;
-    }
-    .search-box div{
-        gap: 5px;
-    }
+/* Tablets / small laptops */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main{ padding: 22px; padding-bottom: 16vh; }
+  .main .greet{ font-size: 44px; }
+  .main .cards{ grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+  .result{ max-height: calc(100vh - 240px); padding: 0 6%; }
+   .bottom-info{
+    justify-content: center;
+    text-align: center;
+    font-size: small;
+    
+}
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+  .main{ padding: 36px 48px; padding-bottom: 12vh; }
+  .main .greet{ font-size: 56px; }
+  .main-container{ max-width: 1200px; }
+  .main .cards{ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; }
+  .result{ padding: 0 6%; max-height: calc(100vh - 300px); }
+   .bottom-info{
+    justify-content: center;
+    text-align: center;
+    font-size: medium;
+    
+}
+}
+
+/* Small UX helpers */
+.main .nav img{ width: 40px; height: 40px; object-fit: cover; }
+.main .greet, .main .card p, .result-data p { word-break: break-word; }
+
+/* ensure bottom fixed elements don't hide content when using small screens */
+@media (max-width: 900px) {
+  .main { padding-bottom: 22vh; }
+   .bottom-info{
+    justify-content: center;
+    text-align: center;
+    font-size: small;
+
+}
+}
+
+.bottom-info{
+    justify-content: center;
+    text-align: center;
+
 }
