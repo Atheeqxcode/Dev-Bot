@@ -4,7 +4,6 @@ import Main from './Components/Main/Main'
 import DevbotAuth from './Components/Auth/DevbotAuth'
 import { GoogleLogin } from '@react-oauth/google';
 
-import jwt_decode from "jwt-decode";
 
 const App = () => {
   // State to track if user is authenticated
@@ -123,7 +122,7 @@ const App = () => {
     
       <div style={appStyles.container}>
         <Sidebar user={user} onLogout={handleLogout} />
-        <Main user={user} />
+  <Main user={user} onLogout={handleLogout} />
       </div>
     </>
   )

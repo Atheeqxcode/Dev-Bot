@@ -1,6 +1,9 @@
+import { jwtDecode } from 'jwt-decode';
+
+
+import dev_icon from '../../assets/dev_icon.png';
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from 'lucide-react';
 
 const DevbotAuth = ({ onAuthSuccess }) => {
@@ -17,17 +20,40 @@ const DevbotAuth = ({ onAuthSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Inline styles object
+
+  // Helper for Google login success
+  const handleGoogleSuccess = (credentialResponse) => {
+    if (credentialResponse.credential) {
+  const decoded = jwtDecode(credentialResponse.credential);
+      // You can shape userData as needed for your app
+      const userData = {
+        id: decoded.sub,
+        name: decoded.name,
+        email: decoded.email,
+        avatar: decoded.picture
+      };
+      onAuthSuccess(userData);
+    } else {
+      alert('Google login failed: No credential');
+    }
+  };
   const styles = {
     container: {
       minHeight: '100vh',
+      minHeight: '100dvh',
+      width: '100vw',
       background: 'linear-gradient(135deg, #dbeafe 0%, #e0e7ff 50%, #f3e8ff 100%)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '16px',
-      position: 'relative',
-      overflow: 'hidden',
-      fontFamily: 'system-ui, -apple-system, sans-serif'
+      padding: 0,
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      zIndex: 100,
+      overflow: 'auto',
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      boxSizing: 'border-box',
     },
     bgElement1: {
       position: 'absolute',
@@ -54,7 +80,13 @@ const DevbotAuth = ({ onAuthSuccess }) => {
     wrapper: {
       position: 'relative',
       width: '100%',
-      maxWidth: '448px'
+      maxWidth: '448px',
+      margin: '0 auto',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '80vh',
     },
     card: {
       background: 'rgba(255, 255, 255, 0.9)',
@@ -62,7 +94,14 @@ const DevbotAuth = ({ onAuthSuccess }) => {
       borderRadius: '24px',
       boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       border: '1px solid rgba(255, 255, 255, 0.3)',
-      padding: '32px'
+      padding: '32px',
+      width: '100%',
+      maxWidth: '448px',
+      margin: '0 auto',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     header: {
       textAlign: 'center',
@@ -389,7 +428,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
           <div style={{...styles.card, width: '100%', maxWidth: '448px', margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} className="auth-center-card">
             <div style={styles.header}>
               <div style={styles.logo}>
-                <img src={require('../../assets/gemini_icon.png')} alt="DevBot" style={{ width: 40, height: 40, borderRadius: 12 }} />
+                <img src={dev_icon} alt="DevBot" style={{ width: 56, height: 56, borderRadius: 16, background: 'linear-gradient(135deg, #dbeafe 0%, #e0e7ff 50%, #f3e8ff 100%)' }} />
               </div>
               <h1 style={styles.title}>DevBot AI</h1>
               <p style={styles.subtitle}>
@@ -445,7 +484,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
                       name="password"
                       value={loginData.password}
                       onChange={handleLoginChange}
-                      style={{...styles.inputField, ...styles.inputFieldWithBtn}}
+                      style={styles.inputField}
                       placeholder="Enter your password"
                       required
                     />
@@ -527,7 +566,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
                       name="password"
                       value={registerData.password}
                       onChange={handleRegisterChange}
-                      style={{...styles.inputField, ...styles.inputFieldWithBtn}}
+                      style={styles.inputField}
                       placeholder="Create a password"
                       required
                     />
@@ -550,7 +589,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
                       name="confirmPassword"
                       value={registerData.confirmPassword}
                       onChange={handleRegisterChange}
-                      style={{...styles.inputField, ...styles.inputFieldWithBtn}}
+                      style={styles.inputField}
                       placeholder="Confirm your password"
                       required
                     />
@@ -614,17 +653,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
             <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '16px 0' }}>
               <GoogleLogin
                 width="100%"
-                onSuccess={credentialResponse => {
-                  const decoded = jwtDecode(credentialResponse.credential);
-                  // You can shape userData as needed for your app
-                  const userData = {
-                    id: decoded.sub,
-                    name: decoded.name,
-                    email: decoded.email,
-                    avatar: decoded.picture
-                  };
-                  onAuthSuccess(userData);
-                }}
+                onSuccess={handleGoogleSuccess}
                 onError={() => {
                   alert('Google login failed');
                 }}

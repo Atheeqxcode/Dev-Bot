@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
+
 import "./Main.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context.jsx";
 import VoiceButton from "../VoiceButton"; 
 
-const Main = ({ user }) => {
+const Main = ({ user, onLogout }) => {
   const {
     onSent,
     recentPrompt,
@@ -23,7 +24,12 @@ const Main = ({ user }) => {
     <div className="main">
       <div className="nav">
         <p>Dev Bot</p>
-        <img src={userAvatar} alt="user avatar" />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <img src={userAvatar} alt="user avatar" style={{ borderRadius: '50%', width: 40, height: 40 }} />
+          <button onClick={onLogout} style={{ marginTop: 8, background: 'none', border: 'none', cursor: 'pointer' }}>
+            <img src={assets.logout_icon} alt="logout" style={{ width: 32, height: 32 }} />
+          </button>
+        </div>
       </div>
 
       <div className="main-container">
