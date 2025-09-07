@@ -40,7 +40,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
   const styles = {
     container: {
       minHeight: '100vh',
-      minHeight: '100dvh',
+      
       width: '100vw',
       background: 'linear-gradient(135deg, #dbeafe 0%, #e0e7ff 50%, #f3e8ff 100%)',
       display: 'flex',
@@ -470,7 +470,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
                       onChange={handleLoginChange}
                       style={styles.inputField}
                       placeholder="Enter your email"
-                      required
+                      required={true}
                     />
                   </div>
                 </div>
@@ -486,7 +486,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
                       onChange={handleLoginChange}
                       style={styles.inputField}
                       placeholder="Enter your password"
-                      required
+                      required={true}
                     />
                     <button
                       type="button"
@@ -536,7 +536,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
                       onChange={handleRegisterChange}
                       style={styles.inputField}
                       placeholder="Enter your full name"
-                      required
+                      required={true}
                     />
                   </div>
                 </div>
@@ -552,7 +552,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
                       onChange={handleRegisterChange}
                       style={styles.inputField}
                       placeholder="Enter your email"
-                      required
+                      required={true}
                     />
                   </div>
                 </div>
@@ -568,7 +568,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
                       onChange={handleRegisterChange}
                       style={styles.inputField}
                       placeholder="Create a password"
-                      required
+                      required={true}
                     />
                     <button
                       type="button"
@@ -591,7 +591,7 @@ const DevbotAuth = ({ onAuthSuccess }) => {
                       onChange={handleRegisterChange}
                       style={styles.inputField}
                       placeholder="Confirm your password"
-                      required
+                      required={true}
                     />
                     <button
                       type="button"
